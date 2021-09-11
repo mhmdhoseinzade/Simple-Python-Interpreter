@@ -90,7 +90,7 @@ class Interpreter:
         
         result = self.term()
         while self.current_token.type in (PLUS,MINUS,DIV,MULTI):
-            token = self.get_next_token()
+            token = self.current_token
             if token.type == PLUS:
                 self.eat(PLUS)
                 result += self.term()
@@ -100,9 +100,10 @@ class Interpreter:
             elif token.type == DIV:
                 self.eat(PLUS)
                 result /= self.term()
-            else:
+            elif token.type == MULTI:
                 self.eat(MULTI)
                 result *= self.term()
+            
         return result
 
 
